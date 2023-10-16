@@ -4,26 +4,34 @@
   <artifactId>BankingProject</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
-  </properties>
+  
   <dependencies>
   
-  <dependency>
+ 
+<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+ <dependency>
     <groupId>org.seleniumhq.selenium</groupId>
     <artifactId>selenium-java</artifactId>
     <version>4.8.3</version>
 </dependency>
 
+  
+
 <!-- https://mvnrepository.com/artifact/org.testng/testng -->
 <dependency>
     <groupId>org.testng</groupId>
     <artifactId>testng</artifactId>
-    <version>7.8.0</version>
-    <scope>test</scope>
+    <version>7.7.1</version>
+    <scope>compile</scope>
 </dependency>
+
+<!-- https://mvnrepository.com/artifact/ru.sbtqa.tag.pagefactory/page-factory-core -->
+<dependency>
+    <groupId>ru.sbtqa.tag.pagefactory</groupId>
+    <artifactId>page-factory-core</artifactId>
+    <version>21.0.1</version>
+</dependency>
+
 
   
   </dependencies>
