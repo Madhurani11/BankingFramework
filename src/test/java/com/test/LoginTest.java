@@ -8,7 +8,7 @@ import com.base.BaseClass;
 
 public class LoginTest extends BaseClass {
 	
-	com.pom.LoginPom LoginPom = new com.pom.LoginPom();
+	com.pom.LoginPom LoginPom ;
 	
 	
 	
@@ -22,15 +22,17 @@ public class LoginTest extends BaseClass {
 	@AfterClass
 	public void tearDown() 
 	{
-		driver.quit();
+		//driver.quit();
 	}
 	@Test
-	public void loginTest() 
+	public void loginTest() throws InterruptedException 
 	{  
+		LoginPom = new com.pom.LoginPom();
 		
-		
-		LoginPom.setUsername(LoginPom.getUsername().substring(11, 16));
-		LoginPom.setPassword(LoginPom.getPassword().substring(11, 19));
+		LoginPom.setUsername(LoginPom.getUsername());
+		Thread.sleep(3000);
+		LoginPom.setPassword(LoginPom.getPassword());
+		Thread.sleep(3000);
 		LoginPom.clickLogin();
 		
 	}

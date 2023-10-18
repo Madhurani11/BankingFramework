@@ -11,6 +11,8 @@ import org.openqa.selenium.WebDriver;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import com.utility.Utility;
+
 public class BaseClass {
 	public static WebDriver driver;
 	public static Properties prop;
@@ -42,7 +44,7 @@ public class BaseClass {
     	driver= new FirefoxDriver();
     	
     	driver.manage().window().maximize();
-    	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+    	Utility.implicit_Wait();
     	driver.get(prop.getProperty("url"));
     	
     }  	

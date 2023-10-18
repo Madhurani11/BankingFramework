@@ -13,13 +13,10 @@ import com.base.BaseClass;
 
 public class LoginPom extends BaseClass {
 	
-	
-	
-	
 	@FindBy(xpath="//p[text()='Username : Admin']")
 	private WebElement username;
 	
-	@FindBy(xpath="//p[text()='Password : admin123']")
+	@FindBy(xpath="//div[@class='oxd-sheet oxd-sheet--rounded oxd-sheet--gutters oxd-sheet--gray-lighten-2 orangehrm-demo-credentials']/p[2]")
 	private WebElement password;
 	
 	@FindBy(xpath="//input[@placeholder='Username']")
@@ -36,20 +33,25 @@ public class LoginPom extends BaseClass {
 	
 	public LoginPom()
 	{
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(driver, LoginPom.this);
 	}
 	
 	
 	public String getUsername() 
 	{
 		
-		 return username.getText();
+		 String uName= username.getText();
+		 System.out.println(uName);
+		return uName.substring(uName.indexOf("A"),uName.length()).trim();
 	}
 	
 	public String getPassword() 
 	{
 		
-		 return password.getText();
+		 String pass= password.getText();
+		 System.out.println(pass);
+		 
+		 return pass.substring(pass.lastIndexOf("a"),pass.length()).trim();
 	}
 	
 	public void setUsername(String setUsername) 
@@ -59,7 +61,7 @@ public class LoginPom extends BaseClass {
 	
 	public void setPassword(String setPassword) 
 	{
-		inputUsername.sendKeys(setPassword);
+		inputPassword.sendKeys(setPassword);
 	}
 	
 	public void clickLogin() 
