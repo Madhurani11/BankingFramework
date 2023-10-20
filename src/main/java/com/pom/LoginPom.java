@@ -33,7 +33,7 @@ public class LoginPom extends BaseClass {
 	
 	public LoginPom()
 	{
-		PageFactory.initElements(driver, LoginPom.this);
+		PageFactory.initElements(driver, this);
 	}
 	
 	
@@ -67,6 +67,7 @@ public class LoginPom extends BaseClass {
 	public void clickLogin() 
 	{
 		login.click();
+		
 	}
 	
 	

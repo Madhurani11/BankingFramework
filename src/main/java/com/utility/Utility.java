@@ -18,26 +18,27 @@ public class Utility extends BaseClass
 	
 	public static void implicit_Wait() 
 	{
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	}
 	
 	public Sheet read_Excel(String sheetName) throws EncryptedDocumentException, IOException 
 	{
-		FileInputStream fis=new FileInputStream("C:\\Users\\Tushar\\eclipse-workspace\\Project1\\BankingProject\\src\\main\\resources\\data\\OrangeHrm.xlsx");
+		FileInputStream fis=new FileInputStream("C:\\Users\\kolek\\git\\BankingFramework\\src\\main\\resources\\data\\ORANGE_HRM.xlsx");
 		
 		Sheet sh=WorkbookFactory.create(fis).getSheet(sheetName);
 		
 		return sh;
 	}
 	
-	public void getSingleStringData(int rowNum ,int cellNum,Sheet sh)
+	public Object getSingleStringData(int rowNum ,int cellNum,Sheet sh)
 	{
 		if(sh.getRow(rowNum).getCell(cellNum).getCellType().toString().equalsIgnoreCase("String"))
 			
-		sh.getRow(rowNum).getCell(cellNum).getStringCellValue();
+		return sh.getRow(rowNum).getCell(cellNum).getStringCellValue();
 		
 		else
-			sh.getRow(rowNum).getCell(cellNum).getNumericCellValue();
+			return sh.getRow(rowNum).getCell(cellNum).getNumericCellValue();
+		
 			
 	}
 	
@@ -45,10 +46,18 @@ public class Utility extends BaseClass
 	{
 		Map<String,Object> map=new HashMap<String,Object>();
 	   for(int i=0;i<=sh.getLastRowNum();i++) {
-		  String key = sh.getRow(i).getCell(0).getStringCellValue();
-		  String value=sh.getRow(i).getCell(1).getStringCellValue();
+		   int cellNum=sh.getRow(i).getFirstCellNum();
+		   for(int j=0;j<cellNum;j++){
+			 
+		  String key = sh.getRow(i).getCell(j).getStringCellValue();
+		  String value=sh.getRow(i).getCell(++j).getStringCellValue();
 		  
-		  map.put(key, value);   
+		  map.put(key, value);
+		   }
+	   }
+	   for(Map.Entry<String , Object> hm: map.entrySet()){
+		   System.out.println(hm.getKey()+" "+hm.getValue());
+		   
 	   }
 	   
 	  return map;

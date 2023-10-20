@@ -5,7 +5,7 @@
     <classes>
       <class name="com.test.LoginTest">
         <methods>
-          <include name="loginTest"/>
+          <include name="test_users"/>
           <include name="setUp"/>
           <include name="tearDown"/>
         </methods>
