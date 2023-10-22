@@ -23,7 +23,7 @@ public class Utility extends BaseClass
 	
 	public Sheet read_Excel(String sheetName) throws EncryptedDocumentException, IOException 
 	{
-		FileInputStream fis=new FileInputStream("C:\\Users\\kolek\\git\\BankingFramework\\src\\main\\resources\\data\\ORANGE_HRM.xlsx");
+		FileInputStream fis=new FileInputStream("C:\\Users\\kolek\\OneDrive\\ORANGE_HRM.xlsx\\");
 		
 		Sheet sh=WorkbookFactory.create(fis).getSheet(sheetName);
 		
@@ -42,7 +42,7 @@ public class Utility extends BaseClass
 			
 	}
 	
-	public Map<String, Object> getAllEcelData(Sheet sh)
+	public static Map<String, Object> getAllEcelData(Sheet sh)
 	{
 		Map<String,Object> map=new HashMap<String,Object>();
 	   for(int i=0;i<=sh.getLastRowNum();i++) {

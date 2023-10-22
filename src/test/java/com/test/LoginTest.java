@@ -54,12 +54,14 @@ public class LoginTest extends BaseClass {
 	public void test_users() throws EncryptedDocumentException, IOException 
 	{
 		LoginPom = new com.pom.LoginPom();
-       Utility utility = new Utility();
+        Utility utility = new Utility();
 		
 		Sheet sh = utility.read_Excel("Sheet1");
 		
+		
 	    String key=  (String) utility.getSingleStringData(1, 0, sh);
-		String value=(String) utility.getSingleStringData(1, 0, sh);
+		double value=(Double) utility.getSingleStringData(1, 1, sh);
+		
 		LoginPom.clickLogin();
 	}
 	
@@ -69,7 +71,7 @@ public class LoginTest extends BaseClass {
 		Sheet sh = utility.read_Excel("Sheet1");
 		
 	    String key=  (String) utility.getSingleStringData(1, 0, sh);
-		String value=(String) utility.getSingleStringData(1, 0, sh);
+		String value=(String) utility.getSingleStringData(1, 1, sh);
 		
 		
 		

@@ -2,19 +2,29 @@ package com.test;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.base.BaseClass;
+import com.pom.LoginPom;
 
 public class HomepageTest extends BaseClass {
 	com.pom.LoginPom LoginPom ;
 	com.pom.HomepagePom HomepagePom ;
 	
-	@BeforeMethod
+	@BeforeClass
 	public void setUp() throws InterruptedException
 	{
 		launchTheWeb();
+		LoginPom = new com.pom.LoginPom();
+		LoginPom.setUsername(LoginPom.getUsername());
+		Thread.sleep(3000);
+		
+		LoginPom.setPassword(LoginPom.getPassword());
+		Thread.sleep(3000);
+		
+		HomepagePom = LoginPom.clickLogin();
 		
 	}
 	
@@ -23,13 +33,16 @@ public class HomepageTest extends BaseClass {
 	{
 		driver.quit();
 	}
+	
 	@Test(priority=1)
-	public void validate_url() 
+	public void validate_url() throws InterruptedException 
 	{
 		LoginPom = new com.pom.LoginPom();
-		HomepagePom = new com.pom.HomepagePom ();
+		
 		String actual=HomepagePom.show_url();
+		System.out.println(actual);
 		String expected=prop.getProperty("HomeUrl");
+		System.out.println(expected);
 		
 		Assert.assertEquals(actual, expected);
 	
