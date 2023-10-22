@@ -1,6 +1,7 @@
 package com.test;
 
 
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -31,6 +32,19 @@ public class PIMTest extends BaseClass {
 			
 			PIMPom=HomepagePom.click_on_PIM();
 			
+		}
+	    @Test
+	    public void validate_url() throws InterruptedException 
+		{
+			PIMPom = new com.pom.PIMPom();
+			
+			String actual=PIMPom.show_url();
+			System.out.println(actual);
+			String expected=prop.getProperty("PIMurl");
+			System.out.println(expected);
+			
+			Assert.assertEquals(actual, expected);
+		
 		}
 	    
 	    @Test

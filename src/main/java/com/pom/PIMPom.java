@@ -36,6 +36,13 @@ public class PIMPom extends BaseClass {
 	 
 	 @FindBy(xpath = ("//button[@type='submit']"))
 	    private WebElement Search_btn;
+	 
+	 @FindBy(xpath = ("(//a[@class='oxd-topbar-body-nav-tab-item'])[2]"))
+	    private WebElement Add_Empoyee;
+	 
+	 @FindBy(xpath = ("(//a[@class='oxd-topbar-body-nav-tab-item'])[3]"))
+	    private WebElement Reports;
+
 
 
 
@@ -44,7 +51,12 @@ public class PIMPom extends BaseClass {
 	    public PIMPom(){
 	        PageFactory.initElements(driver, this);
 	    }
-
+	    
+	    public String show_url() 
+		{
+			String url= driver.getCurrentUrl();
+			return url;
+		}
 	   
 	}
 

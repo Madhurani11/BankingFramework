@@ -1,6 +1,7 @@
 package com.test;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -29,7 +30,7 @@ public class LoginTest extends BaseClass {
 	@AfterClass
 	public void tearDown() 
 	{
-		//driver.quit();
+		driver.quit();
 	}
 	@Test
 	public void loginTest() throws InterruptedException 
@@ -45,24 +46,31 @@ public class LoginTest extends BaseClass {
 		LoginPom.clickLogin();
 		
 		 String actualUrl = driver.getCurrentUrl();
-	      String expectedUrl = "dashboard";
-	      Assert.assertTrue(actualUrl.contains(expectedUrl));
+	     String expectedUrl = "dashboard";
+	     Assert.assertTrue(actualUrl.contains(expectedUrl));
 		
 		
 	}
 	@Test
-	public void test_users() throws EncryptedDocumentException, IOException 
+	public void test_users() throws EncryptedDocumentException, IOException, InterruptedException 
 	{
 		LoginPom = new com.pom.LoginPom();
         Utility utility = new Utility();
 		
 		Sheet sh = utility.read_Excel("Sheet1");
 		
-		
+		Utility.getAllEcelData(sh);
 	    String key=  (String) utility.getSingleStringData(1, 0, sh);
-		double value=(Double) utility.getSingleStringData(1, 1, sh);
+		String value= (String) utility.getSingleStringData(1, 1, sh);
+		LoginPom.setUsername(key);
+		System.out.println(key);
+		LoginPom.setPassword(value);
+		System.out.println(value);
 		
 		LoginPom.clickLogin();
+		
+		Thread.sleep(3000);
+		
 	}
 	
 	public void getDataFromExcel() throws EncryptedDocumentException, IOException {
