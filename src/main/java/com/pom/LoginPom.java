@@ -29,6 +29,9 @@ public class LoginPom extends BaseClass {
 	@FindBy(xpath="//p[@class='oxd-text oxd-text--p orangehrm-login-forgot-header']")
 	private WebElement forgotPassword;
 	
+	@FindBy(xpath="//div[@role='alert']")
+	private WebElement Error_Msg;
+	
 	public LoginPom()
 	{
 		PageFactory.initElements(driver, this);
@@ -68,7 +71,11 @@ public class LoginPom extends BaseClass {
 		return new HomepagePom();
 		
 	}
-	
+	public String validate_error_msg() 
+	{
+		String error=Error_Msg.getText();
+		return error;
+	}
 	
 	
 	

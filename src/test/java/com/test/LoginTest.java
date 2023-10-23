@@ -38,16 +38,12 @@ public class LoginTest extends BaseClass {
 		LoginPom = new com.pom.LoginPom();
 		
 		LoginPom.setUsername(LoginPom.getUsername());
-		Thread.sleep(3000);
-		
 		LoginPom.setPassword(LoginPom.getPassword());
-		Thread.sleep(3000);
-		
 		LoginPom.clickLogin();
 		
-		 String actualUrl = driver.getCurrentUrl();
-	     String expectedUrl = "dashboard";
-	     Assert.assertTrue(actualUrl.contains(expectedUrl));
+		String actualUrl = driver.getCurrentUrl();
+	    String expectedUrl = "dashboard";
+	    Assert.assertTrue(actualUrl.contains(expectedUrl));
 		
 		
 	}
@@ -60,8 +56,8 @@ public class LoginTest extends BaseClass {
 		Sheet sh = utility.read_Excel("Sheet1");
 		
 		Utility.getAllEcelData(sh);
-	    String key=  (String) utility.getSingleStringData(1, 0, sh);
-		String value= (String) utility.getSingleStringData(1, 1, sh);
+	    String key=  utility.getSingleStringData(1, 0, sh).toString();
+		String value=  utility.getSingleStringData(1, 1, sh).toString();
 		LoginPom.setUsername(key);
 		System.out.println(key);
 		LoginPom.setPassword(value);
@@ -69,8 +65,11 @@ public class LoginTest extends BaseClass {
 		
 		LoginPom.clickLogin();
 		
-		Thread.sleep(3000);
-		
+		String Actual= LoginPom.validate_error_msg();
+		System.out.println(Actual);
+		String Expected="Invalid credentials";
+				
+		Assert.assertEquals(Actual, Expected);
 	}
 	
 	public void getDataFromExcel() throws EncryptedDocumentException, IOException {
