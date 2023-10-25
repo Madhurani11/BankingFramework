@@ -19,11 +19,7 @@ public class HomepageTest extends BaseClass {
 		launchTheWeb();
 		LoginPom = new com.pom.LoginPom();
 		LoginPom.setUsername(LoginPom.getUsername());
-		Thread.sleep(3000);
-		
 		LoginPom.setPassword(LoginPom.getPassword());
-		Thread.sleep(3000);
-		
 		HomepagePom = LoginPom.clickLogin();
 		
 	}

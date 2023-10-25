@@ -7,20 +7,21 @@ import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-
 import com.base.BaseClass;
-import com.pom.HomepagePom;
+import com.listener.MyListner;
 import com.utility.Utility;
 
+
+@Listeners(MyListner.class)
 public class LoginTest extends BaseClass {
 	
 	com.pom.LoginPom LoginPom ;
 	
-	
-	
-	@BeforeMethod
+	@BeforeClass
 	public void setUp() throws InterruptedException
 	{
 		launchTheWeb();
@@ -64,26 +65,51 @@ public class LoginTest extends BaseClass {
 		System.out.println(value);
 		
 		LoginPom.clickLogin();
+		Thread.sleep(3000);
 		
 		String Actual= LoginPom.validate_error_msg();
 		System.out.println(Actual);
 		String Expected="Invalid credentials";
 				
 		Assert.assertEquals(Actual, Expected);
+		
 	}
 	
-	public void getDataFromExcel() throws EncryptedDocumentException, IOException {
+	public void getDataFromExcel() throws EncryptedDocumentException, IOException
+	{
 		Utility utility = new Utility();
 		
 		Sheet sh = utility.read_Excel("Sheet1");
 		
 	    String key=  (String) utility.getSingleStringData(1, 0, sh);
 		String value=(String) utility.getSingleStringData(1, 1, sh);
-		
-		
-		
-		
 				
+	}
+	@Test(dataProvider = "logindata", groups = {"sanity"})
+	public void loginTest(Map<Object, Object> data) throws InterruptedException {
+		com.pom.LoginPom loginPom = new com.pom.LoginPom();
+		loginPom.setUsername((String) data.get("username"));
+		loginPom.setPassword((String) data.get("password"));
+		loginPom.clickLogin();
+		Thread.sleep(5000);
+		String actual = driver.getCurrentUrl();
+		String expected = "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index";
+		/*
+		 * try { throw new UserNotFoundException(); }catch(Exception e)
+		 * {e.printStackTrace();}
+		 */
+		//Assert.assertEquals(actual, expected);
+		
+	}
+	@DataProvider(name="logindata")
+	public Object[][] get_DataFromExcel() throws EncryptedDocumentException, IOException {
+		Utility utility = new Utility();
+		
+		Sheet sh = utility.read_Excel("Sheet1");
+		
+		Object[][] data = utility.getData(sh);
+		
+		return data;
 	}
 
 

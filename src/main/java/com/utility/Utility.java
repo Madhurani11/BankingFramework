@@ -1,5 +1,6 @@
 package com.utility;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,9 +10,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
 import com.base.BaseClass;
 
@@ -66,5 +70,55 @@ public class Utility extends BaseClass
 	   return map;
 	   
 	}
+	public Object[][] getData(Sheet sh) {
+
+		int rowCount = sh.getLastRowNum();
+
+		Map<Object, Object> finalData = new HashMap<Object, Object>();
+
+		Object[][] excelData = new Object[rowCount][1];
+
+
+		for(int i=0; i<rowCount; i++) {
+
+			Map<Object, Object> data = new HashMap<Object, Object>();
+
+			int colNum = sh.getRow(i).getLastCellNum();
+
+			for(int j=0; j<colNum; j++) {
+
+				if(sh.getRow(i).getCell(j).getCellType().toString().equalsIgnoreCase("string")) {
+					data.put(sh.getRow(0).getCell(j).getStringCellValue(),
+							sh.getRow(i+1).getCell(j).getStringCellValue());
+				}
+				else if(sh.getRow(i).getCell(j).getCellType().toString().equalsIgnoreCase("numeric")){
+					data.put(sh.getRow(0).getCell(j).getStringCellValue(),
+							sh.getRow(i+1).getCell(j).getNumericCellValue());
+				}
+				else {
+					System.out.println("cell type not match..");
+				}
+
+			}
+
+			excelData[i][0] = data;
+
+
+
+			data.forEach(finalData::put);
+
+
+		}
+
+		return excelData;
+	}
+
+	public static void takeScreenShot(String fileName) throws IOException {
+		String path = System.getProperty("user.dir")+"/screenshots/"+fileName+".jpeg";
+		File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(screenshotFile, new File(path));
+	}
 
 }
+
+
