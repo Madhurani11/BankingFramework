@@ -6,10 +6,12 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.base.BaseClass;
 import com.pom.LoginPom;
+import com.utility.Utility;
 
 public class PIMTest extends BaseClass {
 	
@@ -22,12 +24,9 @@ public class PIMTest extends BaseClass {
 		{
 			launchTheWeb();
 			LoginPom = new com.pom.LoginPom();
-			
 			LoginPom.setUsername(LoginPom.getUsername());
-			Thread.sleep(3000);
-			
 			LoginPom.setPassword(LoginPom.getPassword());
-			Thread.sleep(3000);
+			
 			HomepagePom = LoginPom.clickLogin();
 			
 			PIMPom=HomepagePom.click_on_PIM();
@@ -47,10 +46,22 @@ public class PIMTest extends BaseClass {
 		
 		}
 	    
-	    @Test
-	    public void pimTest() 
+	    @Test(dataProvider="AddEmpoyeeData")
+	    public void validate_add_Employee(String firstName,String MiddleName,String LastName) throws InterruptedException 
 	    {
-	    	
+	    	PIMPom.click_On_addEmpoyee();
+	    	PIMPom.add_employee(firstName, MiddleName, LastName);
+	    	Thread.sleep(5000);
+	    	PIMPom.click_On_SaveButton();
+	    	Thread.sleep(5000);
+	    }
+	    
+	    
+	    @DataProvider
+	    public Object[][] AddEmpoyeeData() 
+	    {
+	    	Object[][] data=Utility.getTestData("Sheet1");
+	    	return data;
 	    }
 		
 		@AfterClass
