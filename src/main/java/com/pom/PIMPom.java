@@ -1,10 +1,14 @@
 package com.pom;
+import java.time.Duration;
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.base.BaseClass;
 
@@ -57,6 +61,9 @@ public class PIMPom extends BaseClass {
 	 
 	 @FindBy(xpath = ("//button[@type='submit']"))
 	    private WebElement Savebtn;
+	 
+	 @FindBy(xpath = ("//div[@class='oxd-toast-content oxd-toast-content--success']"))
+	    private WebElement SuccessFullMsg;
 
 
 
@@ -91,7 +98,13 @@ public class PIMPom extends BaseClass {
 	    	Savebtn.click();
 	    }
 	    
-	    
+	    public String SuccessfulMSG() 
+	    {
+	    	WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(50));
+	    	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("SuccessFullMsg")));
+	    	String success=SuccessFullMsg.getText();
+	    	return success;
+	    }
 	    
 	    
 	    
