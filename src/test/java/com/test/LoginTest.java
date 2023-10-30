@@ -9,14 +9,11 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import com.base.BaseClass;
-import com.listener.MyListner;
+
 import com.utility.Utility;
 
-
-@Listeners(MyListner.class)
 public class LoginTest extends BaseClass {
 	
 	com.pom.LoginPom LoginPom ;
